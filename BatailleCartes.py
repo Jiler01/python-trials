@@ -83,8 +83,7 @@ class Carte:
 
 
 class Jeu:
-    def __init__(self, nb_joueurs, noms: list):
-        self.nb_joueurs = nb_joueurs
+    def __init__(self, noms: list):
         self.noms = noms
         self.creation_decks()
         self.finished = False
@@ -100,8 +99,8 @@ class Jeu:
         random.shuffle(jeudecartes)
         # Distribution des cartes
         self.decks = []
-        slic = len(jeudecartes)//self.nb_joueurs
-        for i in range(self.nb_joueurs):
+        slic = len(jeudecartes)//len(self.noms)
+        for i in range(len(self.noms)):
             deck = File(mode='FIFO')
             for carte in jeudecartes[slic*i:slic*(i+1)]:
                 deck.add(carte)
@@ -119,7 +118,6 @@ class Jeu:
                 print(f'{self.noms[i]} est éliminé faute de cartes.')
                 self.noms.pop(i)
                 self.decks.pop(i)
-                self.nb_joueurs -= 1
             else:
                 i += 1
         if len(self.decks) == 1:
@@ -178,4 +176,4 @@ class Jeu:
         os.system('cls')
 
 
-#Jeu(10, ['Zeus', 'Hades', 'Posseidon', 'Hera', 'Hestia','Demeter', 'Athena', 'Ares', 'Appolon', 'Artemis'])
+#Jeu(['Zeus', 'Hades', 'Posseidon', 'Hera', 'Hestia','Demeter', 'Athena', 'Ares', 'Appolon', 'Artemis'])
