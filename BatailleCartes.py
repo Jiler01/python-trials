@@ -2,6 +2,20 @@ import random
 import time
 import os
 
+
+class Maillon:
+    def __init__(self, before, value, next):
+        self.before = before
+        self.value = value
+        self.next = next
+
+    def set_next(self, value):
+        self.next = value
+
+    def set_before(self, value):
+        self.before = value
+
+
 class File:
     def __init__(self, *args, mode: str = None):
         '''
