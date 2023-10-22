@@ -176,4 +176,4 @@ class Jeu:
         os.system('cls')
 
 
-#Jeu(['Zeus', 'Hades', 'Posseidon', 'Hera', 'Hestia','Demeter', 'Athena', 'Ares', 'Appolon', 'Artemis'])
+# Jeu(['Zeus', 'Hades', 'Posseidon', 'Hera', 'Hestia','Demeter', 'Athena', 'Ares', 'Appolon', 'Artemis'])
