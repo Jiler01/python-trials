@@ -5,9 +5,9 @@ import os
 
 class Maillon:
     def __init__(self, before, value, next):
-        self.before = before
+        self.before: Maillon = before
         self.value = value
-        self.next = next
+        self.next: Maillon = next
 
     def set_next(self, value):
         self.next = value
@@ -17,7 +17,7 @@ class Maillon:
 
 
 class File:
-    def __init__(self, *args, mode: str = None):
+    def __init__(self, *args, mode: None | str = None):
         '''
         Mode : str default mode for self.take(): either 'FIFO' or 'LIFO'
         '''
@@ -60,7 +60,7 @@ class File:
 
     def __str__(self) -> str:
         s = '| ~ '
-        c = self.begining.next
+        c: Maillon = self.begining.next
         while c != self.end:
             s += str(c.value) + ' ~ '
             c = c.next
@@ -83,7 +83,7 @@ class Carte:
 
 
 class Jeu:
-    def __init__(self, noms: list):
+    def __init__(self, noms: list[str]):
         self.noms = noms
         self.creation_decks()
         self.finished = False
@@ -98,7 +98,7 @@ class Jeu:
         # Melange des cartes
         random.shuffle(jeudecartes)
         # Distribution des cartes
-        self.decks = []
+        self.decks: list[File] = []
         slic = len(jeudecartes)//len(self.noms)
         for i in range(len(self.noms)):
             deck = File(mode='FIFO')
@@ -128,7 +128,7 @@ class Jeu:
         tour = 0
 
         # Jeux
-        def jeux(tour, table={}, say=True):
+        def jeux(tour, table: dict[int, dict[int, Carte]] = {}, say=True):
             if not self.finished:
                 self.purge()
             if not self.finished:
@@ -161,12 +161,12 @@ class Jeu:
                 table = jeux(tour, jeux(-tour, table, say=False))
             if self.finished:
                 return
-        print(f'{self.noms[gagnant]} remporte le tour.')
+        print(f'{self.noms[gagnant]} remporte le tour.')  # type: ignore
 
         # Retour des cartes
         for joueur in table:
             for tour in table[joueur]:
-                self.decks[gagnant].add(table[joueur][tour])
+                self.decks[gagnant].add(table[joueur][tour])  # type: ignore
 
         # Nombre de cartes
         for joueur in range(len(self.decks)):
@@ -176,4 +176,4 @@ class Jeu:
         os.system('cls')
 
 
-# Jeu(['Zeus', 'Hades', 'Posseidon', 'Hera', 'Hestia','Demeter', 'Athena', 'Ares', 'Appolon', 'Artemis'])
+# Jeu(['Zeus', 'Hades', 'Posseidon', 'Hera', 'Hestia',' Demeter', 'Athena', 'Ares', 'Appolon', 'Artemis'])
